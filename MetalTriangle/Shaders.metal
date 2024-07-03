@@ -1,0 +1,30 @@
+//
+//  Shaders.metal
+//  MetalTriangle
+//
+//  Created by Evren Sen on 2024-07-03.
+//
+
+#include <metal_stdlib>
+using namespace metal;
+
+struct Vertex {
+    float4 position [[attribute(0)]];
+    float4 color [[attribute(1)]];
+};
+
+struct FragmentInput {
+    float4 position [[position]];
+    float4 color;
+};
+
+vertex FragmentInput vertex_main(Vertex v [[stage_in]]) {
+    return {
+        .position { v.position },
+        .color { v.color }
+    };
+}
+
+fragment float4 fragment_main(FragmentInput input [[stage_in]]) {
+    return input.color;
+}
