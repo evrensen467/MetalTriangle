@@ -9,7 +9,7 @@ import SwiftUI
 import MetalKit
 
 struct MetalView {
-    @State private var renderer = MetalRenderer()
+    @State private var renderer = Renderer()
     @Binding var rotation: Float
     
     private func makeMetalView() -> MTKView {

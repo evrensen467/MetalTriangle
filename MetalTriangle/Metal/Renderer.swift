@@ -7,7 +7,7 @@
 
 import MetalKit
 
-class MetalRenderer: NSObject, MTKViewDelegate {
+class Renderer: NSObject, MTKViewDelegate {
     let vertexBuffer: MTLBuffer
     let pipelineState: MTLRenderPipelineState
     let commandQueue: MTLCommandQueue
@@ -22,12 +22,12 @@ class MetalRenderer: NSObject, MTKViewDelegate {
     private var rotationMatrix = matrix_identity_float4x4
     
     override init() {
-        device = MetalRenderer.createMetalDevice()
-        commandQueue = MetalRenderer.createCommandQueue(with: device)
-        vertexBuffer = MetalRenderer.createVertexBuffer(for: device, containing: vertices)
+        device = Renderer.createMetalDevice()
+        commandQueue = Renderer.createCommandQueue(with: device)
+        vertexBuffer = Renderer.createVertexBuffer(for: device, containing: vertices)
         
         let descriptor = Vertex.buildDefaultVertexDescriptor()
-        let library = MetalRenderer.createDefaultMetalLibrary(with: device)
+        let library = Renderer.createDefaultMetalLibrary(with: device)
         
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
         pipelineDescriptor.vertexFunction = library.makeFunction(name: "vertex_main")
@@ -35,7 +35,7 @@ class MetalRenderer: NSObject, MTKViewDelegate {
         pipelineDescriptor.vertexDescriptor = descriptor
         pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
         
-        pipelineState = MetalRenderer.createPipelineState(with: device, from: pipelineDescriptor)
+        pipelineState = Renderer.createPipelineState(with: device, from: pipelineDescriptor)
         
         super.init()
     }
